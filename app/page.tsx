@@ -3,8 +3,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { ProductResponse } from "./api/cardSearch/route";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 function getListFromTextInput(text: string) {
   return text
@@ -72,7 +72,7 @@ export default function Home() {
             <div className="overflow-scroll">
               <ul className="">
                 {result && result.length > 0
-                  ? result.map((card) => <CardEntry card={card} />)
+                  ? result.map((card) => <CardEntry key={card.id} card={card} />)
                   : "No results found."}
               </ul>
             </div>

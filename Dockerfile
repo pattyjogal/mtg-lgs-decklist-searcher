@@ -2,7 +2,7 @@
 FROM node:18 AS build
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy only package files to leverage Docker cache
 COPY package*.json ./
@@ -20,10 +20,12 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy the built app from the build environment to the Nginx web root
-COPY --from=build /usr/src/app/out /usr/share/nginx/html
-
+COPY --from=BUILD_IMAGE /app/package.json ./package.json
+COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
+COPY --from=BUILD_IMAGE /app/.next ./.next
+COPY --from=BUILD_IMAGE /app/public ./public
 # Expose port 5000 
 EXPOSE 5000
 
 # Command to run Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
