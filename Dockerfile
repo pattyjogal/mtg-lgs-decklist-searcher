@@ -17,15 +17,15 @@ COPY . .
 RUN npm run build
 
 # Use Nginx as the production image
-FROM nginx:alpine
+FROM node:alpine
 
 # Copy the built app from the build environment to the Nginx web root
-COPY --from=BUILD_IMAGE /app/package.json ./package.json
-COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
-COPY --from=BUILD_IMAGE /app/.next ./.next
-COPY --from=BUILD_IMAGE /app/public ./public
-# Expose port 5000 
-EXPOSE 5000
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public
+# Expose port 3000 
+EXPOSE 3000
 
 # Command to run Nginx
 CMD ["npm", "start"]
