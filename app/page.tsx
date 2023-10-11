@@ -48,7 +48,7 @@ export default function Home() {
 
         <p className="max-w-xl">
           Enter the decklist in MTGA format. Omit blank lines and non-card items
-          like "Deck" or "Sideboard". Example:
+          like &quot;Deck&quot; or &quot;Sideboard&quot;. Example:
         </p>
         <pre className="text-left w-fit bg-slate-100 p-3">
           2 Karn, the Great Creator
