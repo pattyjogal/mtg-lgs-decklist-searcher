@@ -36,9 +36,36 @@ export default function Home() {
   }
 
   return (
-    <main className="flex items-center justify-center h-screen space-y-8">
-      <div className="container w-1/2 h-2/3 items-center flex space-x-8 bg-slate-300 p-8">
-        <div className="flex flex-col h-full space-y-8 w-3/5">
+    <main className="flex items-center justify-center flex-col space-y-8 p-8">
+      <div className="text-center flex items-center flex-col space-y-4">
+        <h1 className="text-4xl font-bold text-center">
+          Dice Dojo Bulk Decklist Search
+        </h1>
+        <p className="max-w-xl">
+          A utility to search a list of cards against the Dice Dojo online
+          inventory.
+        </p>
+
+        <p className="max-w-xl">
+          Enter the decklist in MTGA format. Omit blank lines and non-card items
+          like "Deck" or "Sideboard". Example:
+        </p>
+        <pre className="text-left w-fit bg-slate-100 p-3">
+          2 Karn, the Great Creator
+          <br />
+          4 Snapcaster Mage
+          <br />
+          1 Lord Skitter, Sewer King
+          <br />
+        </pre>
+        <p className="max-w-xl">
+          Results will appear on the right or below; click on a card to be taken
+          to the page where you can add it to your cart. Checkmarks are added on
+          each click as a reminder that you already visited the page.
+        </p>
+      </div>
+      <div className="container md:h-[728px] items-center flex md:space-x-8 max-md:space-y-8 max-md:flex-col bg-slate-300 p-8">
+        <div className="flex max-md:w-full max-md:h-96 flex-col md:h-full grow space-y-8">
           <textarea
             onChange={(e) => {
               setCardInput(e.target.value);
@@ -62,17 +89,19 @@ export default function Home() {
             {isLoading ? "Loading..." : "Search"}
           </button>
         </div>
-        <div className="w-2/5 h-full flex flex-col shrink-0 gap-4">
-          {result && (
+        <div className="h-full max-md:w-full flex basis-[18rem] flex-col shrink gap-4">
+          {result && !isLoading && (
             <p className="font-bold">
               Found {result.length} of {cardInputList?.length} cards
             </p>
           )}
           {isLoading || (
-            <div className="overflow-scroll">
+            <div className="md:overflow-scroll">
               <ul className="">
                 {result && result.length > 0
-                  ? result.map((card) => <CardEntry key={card.id} card={card} />)
+                  ? result.map((card) => (
+                      <CardEntry key={card.id} card={card} />
+                    ))
                   : "No results found."}
               </ul>
             </div>
